@@ -1,7 +1,7 @@
 import { IUserMethods } from "./";
 import { RegisterController } from "./register-controller";
 
-describe("", () => {
+describe("register", () => {
   const makeSut = () => {
     class UserMethodsStub implements IUserMethods {
       add(userData: any): any {}
