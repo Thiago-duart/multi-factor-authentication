@@ -35,7 +35,7 @@ describe("register", () => {
     await sut.handle(user);
     expect(userMethodsSpy).toHaveBeenCalledWith(user.body);
   });
-  test("must call encrypterAdapter with password from body ", () => {
+  test("must call encrypterAdapter with password from body ", async () => {
     const { encrypterStub, sut } = makeSut();
     const user = {
       body: {
@@ -45,7 +45,25 @@ describe("register", () => {
       },
     };
     const encryptSpy = jest.spyOn(encrypterStub, "encrypt");
-    sut.handle(user);
+    await sut.handle(user);
     expect(encryptSpy).toHaveBeenCalledWith(user.body.password);
+  });
+  test("must deal with internal errors", async () => {
+    const { encrypterStub, sut } = makeSut();
+    const user = {
+      body: {
+        name: "valid-name",
+        email: "valid-email",
+        password: "valid-password",
+      },
+    };
+    jest.spyOn(encrypterStub, "encrypt").mockImplementationOnce(() => {
+      throw new Error();
+    });
+    const response = await sut.handle(user);
+    expect(response).toEqual({
+      statusCode: 500,
+      body: { message: "internal server error" },
+    });
   });
 });
