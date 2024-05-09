@@ -1,13 +1,13 @@
 import { IUserModel } from "../../domain/models/user-model";
 import {
   IUserData,
-  IUserMethodsRepositore,
-} from "../interface/userMethods.repositore";
+  IUserMethodsRepository,
+} from "../interface/userMethods.repository";
 import { DbUserMethods } from "./db-userMethods";
 
 describe("db-userMethods", () => {
   function makeSut() {
-    class UserMethodsRepositoreStub implements IUserMethodsRepositore {
+    class UserMethodsRepositoreStub implements IUserMethodsRepository {
       async add(userData: IUserData): Promise<IUserModel> {
         return;
       }
