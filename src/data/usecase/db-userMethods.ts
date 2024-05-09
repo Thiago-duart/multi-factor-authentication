@@ -1,11 +1,11 @@
 import { IUserModel } from "../../domain/models/user-model";
 import { IUserData, IUserMethods } from "../../domain/usecase/user-usecase";
-import { IUserMethodsRepositore } from "../interface/userMethods.repositore";
+import { IUserMethodsRepository } from "../interface/userMethods.repository";
 
 export class DbUserMethods implements IUserMethods {
-  constructor(private readonly userMethodsRepositore: IUserMethodsRepositore) {}
+  constructor(private readonly userMethodsRepository: IUserMethodsRepository) {}
   async add(userData: IUserData): Promise<IUserModel> {
-    const user = await this.userMethodsRepositore.add(userData);
+    const user = await this.userMethodsRepository.add(userData);
     return user;
   }
 }
