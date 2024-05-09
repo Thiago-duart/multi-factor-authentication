@@ -3,7 +3,9 @@
     "lib": ["ES2023"],
     "module": "node16",
     "target": "ES2022",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "exclude": ["*.config.js"]
 }
