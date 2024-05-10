@@ -6,6 +6,5 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
-  },
-  "exclude": ["*.config.js"]
+  }
 }
