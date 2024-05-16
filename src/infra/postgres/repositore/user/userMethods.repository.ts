@@ -4,7 +4,7 @@ import {
   IUserMethodsRepository,
 } from "../../../../data/interface/userMethods.repository";
 import { IUserModel } from "../../../../domain/models/user-model";
-import { User } from "../../entity/user.entity";
+import { User } from "../../entities";
 
 export class UserMethodsRepository implements IUserMethodsRepository {
   private readonly userRepository: Repository<User>;
