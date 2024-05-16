@@ -1,27 +1,29 @@
-import { DataSource, Repository } from "typeorm";
-import { User } from "../../entity/user.entity";
-import { postgresTest } from "../../helper/db-test-connection";
+import { DataSource } from "typeorm";
+import { User } from "../../entities";
+import { AppDataSource } from "../../database/data-soucer";
 import { UserMethodsRepository } from "./userMethods.repository";
 
 describe("userMethods.repositore", () => {
   let client: DataSource;
-  let repository: Repository<User>;
+  const repository = AppDataSource.getRepository(User);
+
+  beforeAll(async () => {
+    await AppDataSource.initialize()
+      .then((res) => (client = res))
+      .catch((error) => console.error("connection error >>>>>>", error));
+  });
+  beforeEach(async () => {
+    const userRepo: any = await repository.find();
+    await repository.remove(userRepo);
+  });
+
+  afterAll(async () => {
+    await client.destroy();
+  });
   function makeSut() {
     const sut = new UserMethodsRepository(client);
     return sut;
   }
-  beforeAll(async () => {
-    client = await postgresTest.initialize();
-    repository = client.getRepository(User);
-    console.log("connectado");
-  });
-
-  afterAll(async () => {
-    repository.clear();
-    await client.destroy();
-    console.log("desconectado");
-  });
-
   test("must create an account", async () => {
     const sut = makeSut();
     const newUser = await sut.add({
