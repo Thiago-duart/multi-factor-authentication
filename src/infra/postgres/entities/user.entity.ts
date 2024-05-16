@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import {
   Column,
   CreateDateColumn,
@@ -5,10 +6,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { IUserModel } from "../../../domain/models/user-model";
 
 @Entity()
-export class User implements IUserModel {
+class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
   @Column({ length: 50 })
@@ -18,7 +18,8 @@ export class User implements IUserModel {
   @Column({ length: 120 })
   password: string;
   @CreateDateColumn()
-  createdAt: string;
-  @UpdateDateColumn({ nullable: true })
-  updatedAt?: string;
+  createdAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
+export default User;
