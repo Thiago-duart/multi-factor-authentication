@@ -10,12 +10,13 @@ export class RegisterController implements IControllers {
       const hashPassword = await this.EncrypterAdapter.encrypt(
         request.body.password
       );
-      const user = await this.userMethods.add({
+      const { name, email, id } = await this.userMethods.add({
         ...request.body,
         password: hashPassword,
       });
-      return { statusCode: 200, body: {} };
+      return { statusCode: 201, body: { name, email, id } };
     } catch (error) {
+      console.error("controller >> ", error);
       return { statusCode: 500, body: { message: "internal server error" } };
     }
   }
