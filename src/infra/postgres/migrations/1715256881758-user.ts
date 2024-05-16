@@ -36,7 +36,6 @@ export class User1715256881758 implements MigrationInterface {
           {
             name: "updatedAt",
             type: "timestamp",
-            isNullable: true,
           },
         ],
       }),
